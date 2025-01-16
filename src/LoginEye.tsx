@@ -18,7 +18,7 @@ export default function LoginScreen() {
 
   const handleEmailFocus = () => {
     const maxMovementX = 40;
-    const newX = 30 + Math.min(email.length * 1.5, maxMovementX);
+    const newX = 30 + Math.min(email.length * 0.9, maxMovementX);
     pupilX.value = withTiming(newX);
   };
 
@@ -60,7 +60,7 @@ export default function LoginScreen() {
       </S.TitleContainer>
 
       <S.Eye>
-        <Svg width="100" height="60" viewBox="0 0 100 50">
+        <Svg width="200" height="70" viewBox="0 0 100 50">
           <AnimatedPath
             animatedProps={animatedEyeProps}
             fill="#fff"
@@ -68,7 +68,7 @@ export default function LoginScreen() {
             strokeWidth="4"
           />
           <AnimatedCircle
-            r="15"
+            r="17"
             fill="black"
             animatedProps={animatedPupilProps}
           />
@@ -87,6 +87,23 @@ export default function LoginScreen() {
         onFocus={handlePasswordFocus}
         onBlur={handlePasswordBlur}
       />
+
+      <S.Mono>
+        <S.MonoHead>
+          <S.CubeFace />
+          <S.Cubenape />
+          <S.TriangleOne />
+          <S.TriangleTwo />
+          <S.MonoEye left />
+          <S.MonoEye />
+        </S.MonoHead>
+        <S.MonoBody>
+          <S.TrapezoidTorax />
+          <S.TrapezoidLegs />
+          <S.MonoLegs left />
+          <S.MonoLegs />
+        </S.MonoBody>
+      </S.Mono>
     </S.Container>
   );
 }
