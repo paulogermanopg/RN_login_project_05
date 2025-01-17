@@ -2,19 +2,28 @@ import React, {useState} from 'react';
 import Animated, {
   useSharedValue,
   useAnimatedProps,
+  useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
 import Svg, {Path, Circle} from 'react-native-svg';
+import Icon from 'react-native-vector-icons/Ionicons';
 import * as S from './styles';
 
 const AnimatedPath = Animated.createAnimatedComponent(Path);
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 export default function LoginScreen() {
-  const [email, setEmail] = useState('');
-  const pupilX = useSharedValue(50);
-  const pupilY = useSharedValue(30);
-  const eyeOpenHeight = useSharedValue(50);
+  const [email, setEmail] = useState<string>('');
+  const [secureEntry, setSecureEntry] = useState<boolean>(true);
+  const pupilX = useSharedValue<number>(50);
+  const pupilY = useSharedValue<number>(30);
+  const eyeOpenHeight = useSharedValue<number>(50);
+  const headRotation = useSharedValue<number>(0);
+
+  const toggleSecureEntry = () => {
+    setSecureEntry(!secureEntry);
+    headRotation.value = withTiming(secureEntry ? -20 : 0, {duration: 500});
+  };
 
   const handleEmailFocus = () => {
     const maxMovementX = 40;
@@ -40,6 +49,10 @@ export default function LoginScreen() {
   const handlePasswordBlur = () => {
     eyeOpenHeight.value = withTiming(50, {duration: 300});
   };
+
+  const animatedHeadStyle = useAnimatedStyle(() => ({
+    transform: [{rotate: `${headRotation.value}deg`}],
+  }));
 
   const animatedEyeProps = useAnimatedProps(() => ({
     d: `M5,25 Q50,${25 - eyeOpenHeight.value} 95,25 Q50,${
@@ -75,35 +88,52 @@ export default function LoginScreen() {
         </Svg>
       </S.Eye>
 
-      <S.StyledInput
-        placeholder="Email"
-        onFocus={handleEmailFocus}
-        onChangeText={handleEmailChange}
-      />
+      <S.InputContainer>
+        <S.StyledInput
+          placeholder="Email"
+          onFocus={handleEmailFocus}
+          onChangeText={handleEmailChange}
+        />
+      </S.InputContainer>
 
-      <S.StyledInput
-        placeholder="Senha"
-        secureTextEntry
-        onFocus={handlePasswordFocus}
-        onBlur={handlePasswordBlur}
-      />
+      <S.InputContainer>
+        <S.StyledInput
+          placeholder="Senha"
+          secureTextEntry={secureEntry}
+          onFocus={handlePasswordFocus}
+          onBlur={handlePasswordBlur}
+        />
 
-      <S.Mono>
-        <S.MonoHead>
-          <S.CubeFace />
-          <S.Cubenape />
-          <S.TriangleOne />
-          <S.TriangleTwo />
-          <S.MonoEye left />
-          <S.MonoEye />
-        </S.MonoHead>
-        <S.MonoBody>
-          <S.TrapezoidTorax />
-          <S.TrapezoidLegs />
-          <S.MonoLegs left />
-          <S.MonoLegs />
-        </S.MonoBody>
-      </S.Mono>
+        <S.ToggleButton onPress={toggleSecureEntry}>
+          <Icon name={secureEntry ? 'eye-off' : 'eye'} size={24} color="#ccc" />
+        </S.ToggleButton>
+      </S.InputContainer>
+
+      <S.MonoContainer>
+        <S.Mono>
+          <Animated.View style={[animatedHeadStyle]}>
+            <S.MonoHead>
+              <S.CubeFace />
+              <S.Cubenape />
+              <S.TriangleOne />
+              <S.TriangleTwo />
+              <S.MonoEye left />
+              <S.MonoEye />
+            </S.MonoHead>
+          </Animated.View>
+
+          <S.MonoBody>
+            <S.MonoTorax>
+              <S.TrapezoidTorax />
+              <S.MonoArm />
+            </S.MonoTorax>
+
+            <S.TrapezoidLegs />
+            <S.MonoLegs left />
+            <S.MonoLegs />
+          </S.MonoBody>
+        </S.Mono>
+      </S.MonoContainer>
     </S.Container>
   );
 }
