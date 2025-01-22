@@ -64,19 +64,6 @@ export const Title = styled.Text<STYLEDPROPS>`
   margin-bottom: ${(props: any) => props.bigger ? 20 : -15}px;
 `;
 
-export const Button = styled.TouchableOpacity`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-export const ButtonText = styled.Text`
-  font-size: 20px;
-  color: #fff;
-  font-family: AnnieUseYourTelescope-Regular;
-  letter-spacing: 2px;
-`;
-
 export const MonoContainer = styled.View`
   display: flex;
   align-items: flex-start;
@@ -242,10 +229,84 @@ export const MonoLegs = styled.View<STYLEDPROPS>`
   left: ${(props: any) => props.left ? 18 : 40}px;
 `;
 
-export const bottomContainer = styled.View`
+export const BottomContainer = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
   justfy-content: space-between;
   width: 100%;
+  position: relative;
 `;
+
+export const TVContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 40px;
+  bottom: 5px;
+`;
+
+export const TVBody = styled.TouchableOpacity`
+  height: 100px;
+  width: 150px;
+  background-color: #fff;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 8px;
+  padding-right: 8px;
+`;
+
+export const TVScreen = styled.View`
+  height: 90px;
+  width: 100px;
+  background-color: #000;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ButtonText = styled.Text`
+  font-size: 30px;
+  color: #fff;
+  font-family: AnnieUseYourTelescope-Regular;
+  letter-spacing: 5px;
+`;
+
+export const TVPainel = styled.View`
+  height: 90px;
+  width: 30px;
+  background-color: #aaa;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 7px;
+  padding-bottom: 7px;
+`;
+
+export const TVAudioContainer = styled.View`
+`;
+
+export const TVAudio = styled.View`
+  height: 3px;
+  width: 25px;
+  background-color: #000;
+  border-radius: 10px;
+  margin-top: 3px;
+`;
+
+export const TVButtom = styled.View`
+  height: 10px;
+  width: 10px;
+  background-color: #000;
+  border-radius: 5px;
+`;
+

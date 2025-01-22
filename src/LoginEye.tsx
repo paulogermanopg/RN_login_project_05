@@ -27,11 +27,21 @@ export default function LoginScreen() {
 
   const toggleSecureEntry = () => {
     setSecureEntry(!secureEntry);
+    //pupila
+    if (secureEntry) {
+      pupilY.value = withTiming(15, {duration: 300});
+    } else {
+      pupilY.value = withTiming(30, {duration: 300});
+    }
+
+    //mono
     headRotation.value = withTiming(secureEntry ? -20 : 0, {duration: 500});
     armRotation.value = withTiming(secureEntry ? -112 : 0, {duration: 500});
     lightOpacity.value = withTiming(secureEntry ? 1 : 0, {
       duration: secureEntry ? 1500 : 200,
     });
+
+    //senha
     colorInput.value = withTiming(secureEntry ? '#FFFF0080' : '#ccc', {
       duration: secureEntry ? 1500 : 200,
     });
@@ -47,6 +57,7 @@ export default function LoginScreen() {
   };
 
   const handleEmailChange = (text: string) => {
+    !secureEntry && toggleSecureEntry();
     setEmail(text);
     const maxMovementX = 40;
     const newX = 30 + Math.min(text.length * 0.9, maxMovementX);
@@ -138,32 +149,55 @@ export default function LoginScreen() {
         </S.ToggleButton>
       </S.InputContainer>
 
-      <S.MonoContainer>
-        <S.Mono>
-          <Animated.View style={[animatedHeadStyle]}>
-            <S.MonoHead>
-              <S.CubeFace />
-              <S.Cubenape />
-              <S.TriangleOne />
-              <S.TriangleTwo />
-              <S.MonoEye left />
-              <S.MonoEye />
-            </S.MonoHead>
-          </Animated.View>
+      <S.BottomContainer>
+        <S.MonoContainer>
+          <S.Mono>
+            <Animated.View style={[animatedHeadStyle]}>
+              <S.MonoHead>
+                <S.CubeFace />
+                <S.Cubenape />
+                <S.TriangleOne />
+                <S.TriangleTwo />
+                <S.MonoEye left />
+                <S.MonoEye />
+              </S.MonoHead>
+            </Animated.View>
 
-          <S.MonoBody>
-            <S.MonoTorax>
-              <S.TrapezoidTorax />
-              <S.MonoArm style={[animatedArmStyle]} />
-              <S.LightStyle style={[animatedLightStyle]} />
-            </S.MonoTorax>
+            <S.MonoBody>
+              <S.MonoTorax>
+                <S.TrapezoidTorax />
+                <S.MonoArm style={[animatedArmStyle]} />
+                <S.LightStyle style={[animatedLightStyle]} />
+              </S.MonoTorax>
 
-            <S.TrapezoidLegs />
-            <S.MonoLegs left />
-            <S.MonoLegs />
-          </S.MonoBody>
-        </S.Mono>
-      </S.MonoContainer>
+              <S.TrapezoidLegs />
+              <S.MonoLegs left />
+              <S.MonoLegs />
+            </S.MonoBody>
+          </S.Mono>
+        </S.MonoContainer>
+
+        <S.TVContainer>
+          <S.TVBody>
+            <S.TVScreen>
+              <S.ButtonText>
+                Entrar
+              </S.ButtonText>
+            </S.TVScreen>
+            <S.TVPainel>
+              <S.TVButtom />
+              <S.TVButtom />
+              <S.TVAudioContainer>
+                <S.TVAudio />
+                <S.TVAudio />
+                <S.TVAudio />
+                <S.TVAudio />
+                <S.TVAudio />
+              </S.TVAudioContainer>
+            </S.TVPainel>
+          </S.TVBody>
+        </S.TVContainer>
+      </S.BottomContainer>
     </S.Container>
   );
 }
