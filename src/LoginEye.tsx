@@ -15,14 +15,29 @@ const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 export default function LoginScreen() {
   const [email, setEmail] = useState<string>('');
   const [secureEntry, setSecureEntry] = useState<boolean>(true);
+
   const pupilX = useSharedValue<number>(50);
   const pupilY = useSharedValue<number>(30);
   const eyeOpenHeight = useSharedValue<number>(50);
   const headRotation = useSharedValue<number>(0);
+  const armRotation = useSharedValue<number>(0);
+  const lightOpacity = useSharedValue<number>(0);
+  const colorInput = useSharedValue<string>('#ccc');
+  const borderWidthInput = useSharedValue<number>(1);
 
   const toggleSecureEntry = () => {
     setSecureEntry(!secureEntry);
     headRotation.value = withTiming(secureEntry ? -20 : 0, {duration: 500});
+    armRotation.value = withTiming(secureEntry ? -112 : 0, {duration: 500});
+    lightOpacity.value = withTiming(secureEntry ? 1 : 0, {
+      duration: secureEntry ? 1500 : 200,
+    });
+    colorInput.value = withTiming(secureEntry ? '#FFFF0080' : '#ccc', {
+      duration: secureEntry ? 1500 : 200,
+    });
+    borderWidthInput.value = withTiming(secureEntry ? 2 : 1, {
+      duration: secureEntry ? 1500 : 200,
+    });
   };
 
   const handleEmailFocus = () => {
@@ -65,6 +80,20 @@ export default function LoginScreen() {
     cy: pupilY.value,
   }));
 
+  const animatedArmStyle = useAnimatedStyle(() => ({
+    transform: [{rotate: `${armRotation.value}deg`}],
+  }));
+
+  const animatedLightStyle = useAnimatedStyle(() => ({
+    opacity: lightOpacity.value,
+  }));
+
+  const animatedInputStyle = useAnimatedStyle(() => ({
+    borderWidth: borderWidthInput.value,
+    borderColor: colorInput.value,
+    borderStyle: 'solid',
+  }));
+
   return (
     <S.Container>
       <S.TitleContainer>
@@ -96,7 +125,7 @@ export default function LoginScreen() {
         />
       </S.InputContainer>
 
-      <S.InputContainer>
+      <S.InputContainer style={animatedInputStyle}>
         <S.StyledInput
           placeholder="Senha"
           secureTextEntry={secureEntry}
@@ -125,7 +154,8 @@ export default function LoginScreen() {
           <S.MonoBody>
             <S.MonoTorax>
               <S.TrapezoidTorax />
-              <S.MonoArm />
+              <S.MonoArm style={[animatedArmStyle]} />
+              <S.LightStyle style={[animatedLightStyle]} />
             </S.MonoTorax>
 
             <S.TrapezoidLegs />

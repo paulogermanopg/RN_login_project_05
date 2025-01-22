@@ -31,7 +31,7 @@ export const StyledInput = styled.TextInput`
   color: #fff;
 `;
 
-export const InputContainer = styled.View`
+export const InputContainer = styled(Animated.View)`
   width: 80%;
   flex-direction: row;
   align-items: center;
@@ -40,12 +40,14 @@ export const InputContainer = styled.View`
   border-radius: 8px;
   padding: 10px;
   margin-top: 12px;
+  z-index: 1;
 `;
 
 export const ToggleButton = styled.TouchableOpacity`
   padding: 5px;
   position: absolute;
   right: 5px;
+  z-index: 1;
 `;
 
 export const TitleContainer = styled.View`
@@ -167,7 +169,7 @@ export const MonoTorax = styled.View`
 `;
 
 export const TrapezoidTorax = styled.View`
-  width: 43px;
+  width: 53px;
   height: 0;
   border-left-width: 0px; 
   border-right-width: 15px; 
@@ -181,19 +183,38 @@ export const TrapezoidTorax = styled.View`
   left: 1px;
 `;
 
-export const MonoArm = styled.View<STYLEDPROPS>`
+export const MonoArm = styled(Animated.View)<STYLEDPROPS>`
   width: 20px;
   height: 0;
-  border-left-width: 10px; 
-  border-right-width: 0px; 
-  border-top-width: 42px; 
+  border-left-width: 0px; 
+  border-right-width: 10px; 
+  border-bottom-width: 42px; 
   border-left-color: transparent;
   border-right-color: transparent;
-  border-top-color: #fff; 
+  border-bottom-color: #fff;
   background-color: transparent;
-  transform: rotate(180deg);
+  transform-origin: top left;
   margin-top: -8px;
-  left: 1px;
+  position: absolute;
+  left: 45px;
+`;
+
+export const LightStyle = styled(Animated.View)`
+  width: 30px;
+  height: 0;
+  border-left-width: 0px; 
+  border-right-width: 10px; 
+  border-bottom-width: 240px; 
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: #FFFF0080;
+  background-color: transparent;
+  transform: rotate(-112deg);
+  bottom: -7px;
+  position: absolute;
+  left: 177px;
+  opacity: 0;
+  z-index: 0;
 `;
 
 export const TrapezoidLegs = styled.View`
@@ -219,4 +240,12 @@ export const MonoLegs = styled.View<STYLEDPROPS>`
   position: absolute;
   bottom: 2px;
   left: ${(props: any) => props.left ? 18 : 40}px;
+`;
+
+export const bottomContainer = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justfy-content: space-between;
+  width: 100%;
 `;
