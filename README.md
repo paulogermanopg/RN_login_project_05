@@ -34,7 +34,7 @@ yarn install
 ## Passo 3
 Se necessário, fixar as fonts usadas para o projeto com:
 ```bash
-npx react-native asset
+npx react-native-asset
 ```
 # Licença do MIT
 Copyright (c) 2025 Paulo Germano
